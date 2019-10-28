@@ -1,0 +1,23 @@
+version: '3.4'
+
+x-logging:
+  &default-logging
+  options:
+    max-size: '12m'
+    max-file: '5'
+  driver: json-file
+
+services:
+  rabbitmq:
+    restart: always
+    logging: *default-logging
+    container_name: rabbitmq-delay
+    image: ph500wan/rabbitmq:delay
+    environment:
+      TZ: "Asia/Shanghai"
+      RABBITMQ_DEFAULT_USER: "bingo"
+      RABBITMQ_DEFAULT_PASS: "bin2020go"
+    ports:
+    - "15675:15672"
+    - "5675:5672"
+
